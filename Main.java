@@ -33,3 +33,71 @@ public class MainClass {
         team.showMembersFinishedCourse();
     }
 }
+
+
+public class Team {
+    String teamName;
+    Competitor[] teamMembers = new Competitor[4];
+
+
+    public Team(String teamName, Competitor[] teamMembers){
+        this.teamName = teamName;
+        this.teamMembers = teamMembers;
+    }
+
+    public String getTeamName(){
+        return "Team name: "+teamName;
+    }
+
+    public Competitor[] getMembers(){
+        return teamMembers;
+    }
+
+    public void showResults(){
+        for(Competitor c: teamMembers){
+            c.showResult();
+        }
+    }
+
+    public void showMembersFinishedCourse(){
+        for(Competitor c: teamMembers){
+            if(c.isOnDistance())
+                c.showResult();
+        }
+    }
+}
+
+
+
+
+
+
+package ru.geekbrains.qa.java2.lesson1.homeWork.obstacleCourse;
+
+
+import ru.geekbrains.qa.java2.lesson1.homeWork.Status;
+import ru.geekbrains.qa.java2.lesson1.homeWork.team.Team;
+import ru.geekbrains.qa.java2.lesson1.homeWork.team.TeamMember;
+
+public class Course {
+
+    Obstacle[] obstacles;
+
+    public Course(Obstacle[] obstacles){
+        this.obstacles = obstacles;
+    }
+
+    public void doIt(Team team){
+        Competitor[] teamMembers = team.getMembers();
+        if(teamMembers.length > 0){
+            for (Competitor c: teamMembers){
+                for (Obstacle o: obstacles){
+                    o.doIt(c);
+                    if (!c.isOnDistance()) break;
+                }
+            }
+        } else {
+            System.out.println("There are no members in the team!");
+        }
+    }
+}
